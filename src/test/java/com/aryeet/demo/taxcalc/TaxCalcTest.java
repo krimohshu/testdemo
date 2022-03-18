@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.rules.TestName;
 
 import java.util.LinkedHashMap;
@@ -31,6 +32,7 @@ public class TaxCalcTest {
         System.out.println("Start " + testName.getMethodName());
     }
 
+    @Category(Priorty1Tests.class)
     @Test
     public void canCalculateTaxDueWithSingleIncomeInput() throws Exception {
         Integer first = taxCalc.netAmount(new TaxCalc.Pair<>(40, "GBP"))
@@ -39,6 +41,7 @@ public class TaxCalcTest {
 
     }
 
+    @Category(Priorty1Tests.class)
     @Test
     public void canCalculateTaxWithCaseInsensitiveCCode() throws Exception {
         Integer first = taxCalc.netAmount(new TaxCalc.Pair<>(40, "gbp"), new TaxCalc.Pair<>(50, "Gbp"), new TaxCalc.Pair<>(60, "GBP"))
@@ -47,12 +50,14 @@ public class TaxCalcTest {
 
     }
 
+    @Category(Priorty0Tests.class)
     @Test(expected = TaxAmountCurrenyCodeMismatchException.class)
     public void cannotCalculateTaxDueToMismatchCurrencyCode() throws Exception {
         Integer first = taxCalc.netAmount(new TaxCalc.Pair<>(40, "GBP"), new TaxCalc.Pair<>(50, "USD"), new TaxCalc.Pair<>(60, "GBP"))
                 .first;
     }
 
+    @Category(Priorty0Tests.class)
     @Test
     public void canCalculateTax() throws Exception {
         Integer first = new TaxCalc(10)
@@ -61,17 +66,8 @@ public class TaxCalcTest {
         assertEquals(135, first.intValue());
     }
 
-    @Test
-    public void cannotSumDifferentCurrencies() throws Exception {
-        try {
-            new TaxCalc(10).netAmount(new TaxCalc.Pair<>(4, "GBP"),
-                    new TaxCalc.Pair<>(5, "USD"));
-            fail("didn't throw");
-        } catch (Exception e) {
 
-        }
-    }
-
+    @Category(WIPTests.class)
     @Test(timeout = 500)
     public void canCalculateTaxWithManyTaxableIncomeInputs() throws Exception {
         List<TaxCalc.Pair<Integer, String>> rest = new LinkedList<>();

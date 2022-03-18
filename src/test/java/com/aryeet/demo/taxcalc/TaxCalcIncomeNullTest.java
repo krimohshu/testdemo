@@ -6,9 +6,10 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.rules.TestName;
 
-
+@Category(Priorty0Tests.class)
 public class TaxCalcIncomeNullTest {
 
     @Rule

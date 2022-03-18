@@ -10,5 +10,5 @@ import org.junit.runners.Suite;
         TaxCalcIncomeNullTest.class
 })
 
-public class JunitTestSuite {
+public class AllJunitTestSuite {
 }  
