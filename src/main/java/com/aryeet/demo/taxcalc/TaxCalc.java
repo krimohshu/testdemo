@@ -5,13 +5,16 @@ import com.aryeet.demo.taxcalc.dto.UserDataInputRule;
 import com.aryeet.demo.taxcalc.exceptions.ErrorCode;
 import com.aryeet.demo.taxcalc.exceptions.IncomeValueIsNullException;
 import com.aryeet.demo.taxcalc.exceptions.TaxAmountCurrenyCodeMismatchException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class TaxCalc {
+public class TaxCalc {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TaxCalc.class);
 
     private int percent;
     private RuleRunTimeStatusWithReason ruleRunTimeStatusWithReason;

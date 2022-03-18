@@ -9,6 +9,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.rules.TestName;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -20,6 +22,7 @@ import static org.assertj.core.api.Assertions.*;
 
 
 public class TaxCalcTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TaxCalcTest.class);
 
     @Rule
     public TestName testName = new TestName();

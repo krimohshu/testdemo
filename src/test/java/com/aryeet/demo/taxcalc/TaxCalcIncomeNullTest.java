@@ -8,9 +8,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.rules.TestName;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Category(Priorty0Tests.class)
 public class TaxCalcIncomeNullTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TaxCalcIncomeNullTest.class);
+
 
     @Rule
     public TestName testName = new TestName();
