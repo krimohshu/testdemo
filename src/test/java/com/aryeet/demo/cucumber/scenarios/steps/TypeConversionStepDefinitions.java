@@ -1,4 +1,4 @@
-package scenarios.steps;
+package com.aryeet.demo.cucumber.scenarios.steps;
 
 import com.aryeet.demo.bdd.model.CharacterFilter;
 import io.cucumber.java.DataTableType;

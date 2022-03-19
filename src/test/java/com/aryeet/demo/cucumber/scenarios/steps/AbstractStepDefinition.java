@@ -1,4 +1,4 @@
-package scenarios.steps;
+package com.aryeet.demo.cucumber.scenarios.steps;
 
 import com.aryeet.demo.bdd.webdriver.SharedDriver;
 import io.cucumber.java.Scenario;

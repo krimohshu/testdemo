@@ -2,6 +2,7 @@ package com.aryeet.demo.bdd.webdriver;
 
 import com.aryeet.demo.bdd.pages.HomePage;
 
+import com.aryeet.demo.bdd.pages.ResultPage;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,12 @@ public class TestConfigPageObjects {
     public HomePage appLandingPage() {
         System.out.println("I am into AppLandingPage page" );
         return new HomePage(environment.getProperty("base.url"), sharedDriver, 30);
+    }
+
+    @Bean
+    public ResultPage resultPage() {
+        System.out.println("I am into AppLandingPage page" );
+        return new ResultPage(environment.getProperty("base.url.result"), sharedDriver, 30);
     }
 
 

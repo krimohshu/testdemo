@@ -1,9 +1,8 @@
-package scenarios.steps;
+package com.aryeet.demo.cucumber.scenarios.steps;
 
 import com.aryeet.demo.SpringApp;
 import io.cucumber.java.en.Given;
 import io.restassured.RestAssured;
-import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,10 +17,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)

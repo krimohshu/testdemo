@@ -38,7 +38,7 @@ public class SharedDriver extends EventFiringWebDriver {
     };
     //BROWSERSTACK SETTINGS - Please pass "browserStack_krishan" in getRealDriver()
     public static final String USERNAME = "krishanshukla2";
-    public static final String AUTOMATE_KEY = "qZqEadYsrCyVkySP8ppY";
+    public static final String AUTOMATE_KEY = "XXX";
     public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
 
     @Autowired
