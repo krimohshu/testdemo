@@ -1,5 +1,6 @@
 package com.aryeet.demo.generalcode;
 
+import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringJoiner;
@@ -7,20 +8,20 @@ import java.util.StringJoiner;
 public class Fibonacci {
 
     public static void main(String[] args) {
-        List<Integer> userInputs = new LinkedList<>();
+        List<BigInteger> userInputs = new LinkedList<>();
         String delimiter = ",";
         int counter = 1;
-        int counterToReachinFab = 35;
-        int beginningNumber = 1;
-        int secondNumberOfSeries = 1;
+        int counterToReachinFab = 250;
+        BigInteger beginningNumber = BigInteger.valueOf(1);
+        BigInteger secondNumberOfSeries = BigInteger.valueOf(1);
+
 
         while (counter <= counterToReachinFab) {
-            userInputs.add(beginningNumber);
 
-            int nextTerm = beginningNumber + secondNumberOfSeries;
+            userInputs.add(beginningNumber);
+            BigInteger nextTerm = beginningNumber.add(secondNumberOfSeries);
             beginningNumber = secondNumberOfSeries;
             secondNumberOfSeries = nextTerm;
-
             counter++;
         }
         StringJoiner joiner = new StringJoiner(",");
