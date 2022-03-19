@@ -11,7 +11,7 @@ public class Fibonacci {
         List<BigInteger> userInputs = new LinkedList<>();
         String delimiter = ",";
         int counter = 1;
-        int counterToReachinFab = 250;
+        int counterToReachinFab = 35;
         BigInteger beginningNumber = BigInteger.valueOf(1);
         BigInteger secondNumberOfSeries = BigInteger.valueOf(1);
 
