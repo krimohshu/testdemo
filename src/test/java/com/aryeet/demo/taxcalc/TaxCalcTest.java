@@ -1,10 +1,8 @@
 package com.aryeet.demo.taxcalc;
 
-import com.aryeet.demo.taxcalc.exceptions.IncomeValueIsNullException;
+import com.aryeet.demo.SpringApp;
 import com.aryeet.demo.taxcalc.exceptions.TaxAmountCurrenyCodeMismatchException;
-import org.assertj.core.api.SoftAssertions;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -21,13 +19,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.assertj.core.api.Assertions.*;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("qa")
