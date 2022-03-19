@@ -1,11 +1,9 @@
 package scenarios.steps;
 
-import com.aryeet.model.ReviewFilter;
-import com.aryeet.model.TVInfoCard;
-import com.aryeet.pages.TvInfoCardPage;
-import com.aryeet.pages.WhichReviewHomePage;
-import com.aryeet.rules.RuleVerificationDTO;
-import com.aryeet.util.StringUtils;
+
+import com.aryeet.demo.bdd.model.CharacterFilter;
+import com.aryeet.demo.bdd.pages.HomePage;
+import com.aryeet.demo.bdd.pages.ResultPage;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
@@ -18,10 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class WhichTVReviewHomeSteps extends AbstractStepDefinition{
+public class WhichTVReviewHomeSteps extends AbstractStepDefinition {
+
 
     private static final Logger log = LoggerFactory.getLogger(WhichTVReviewHomeSteps.class);
 
@@ -29,101 +29,37 @@ public class WhichTVReviewHomeSteps extends AbstractStepDefinition{
     Environment environment;
 
     @Autowired
-    private WhichReviewHomePage whichReviewHomePage;
+    private HomePage homePage;
 
     @Autowired
-    private TvInfoCardPage tvInfoCardPage;
+    private ResultPage resultPage;
 
-    @Autowired
-    private RuleVerificationDTO ruleVerificationDTO;
-
-    Map<Integer, TVInfoCard> getReviewCardMap = new HashMap<>();
-    ReviewFilter filterConditions = null;
-
-    @Before
-    public void before(final Scenario scenario) {
-        super.before(scenario);
-    }
 
     @Given("user navigate to {string} page")
     public void user_navigate_to_page(String goToPage) {
-        whichReviewHomePage.goTo(environment.getProperty("base.url.which.review.home"));
+        homePage.goTo(environment.getProperty("base.url.home"));
+    }
+    @Given("User provide search (.*) field")
+    public void search_text(String searchText) {
+        homePage.search(searchText);
+        homePage.selectSearchResult(searchText);
+
     }
 
-    @Given("updating the reporting in framework")
-    public void report() {
-        embedTextInReport("this is krishan testing logging");
-    }
-
-    @When("sort the {string} page with {string} sort-option")
-    public void sort_the_home_page_with_sort_option(String goToPage, String sortOption) {
-        whichReviewHomePage.selectDropdownByText(sortOption);
-    }
-
-    @When("User set filter conditions")
-    public void user_set_filter_conditions(ReviewFilter filterConditions) {
-
-        whichReviewHomePage.setfilters(filterConditions);
-        this.filterConditions = filterConditions;
-        ruleVerificationDTO.setReviewFilter(filterConditions);
-        embedTextInReport("Filter Conditions: " + filterConditions.toString());
-    }
-
-    @Then("verify filtered result of TV review products pass {string} rule")
-    public void verify_filtered_result_of_TV_review_products_pass(String ruleEngineIndex) {
+    @When("verify result of search criteria")
+    public void user_char_filter(CharacterFilter filterConditions) {
         SoftAssertions softly = new SoftAssertions();
+        Map<String, String> resultValMap = new LinkedHashMap<>();
 
-        //Get All the tv product cards
-        getReviewCardMap = tvInfoCardPage.getAllTVReviewCard();
+        resultValMap = resultPage.getResultTable();
+        // | Pokédex_number | Height | Weight | Type  | Held_Items   |
 
-        ruleVerificationDTO.setRuleIndex(ruleEngineIndex.split(";")[0]);
-        //Get enum of input provided by user- screensize
-        String filterStringToMatch = filterConditions.getFilterScreenSize().stream()
-                .map(y -> y.getSizeOption())
-                .collect(Collectors.joining(","));
-
-        //convert enum to screen size e.g. screen_32_34 will be 32-inches, 33-inches, 34-inches
-        String allTVSizeType = StringUtils.getTVsizeBasedOnInpu(filterStringToMatch);
-
-        //Verify using soft assertion
-        getReviewCardMap.entrySet().stream()
-                .filter(y -> y != null && y.getValue() != null && y.getValue().getImportantFeature() != null)
-                .forEach(screensizetest -> {
-
-                    softly.assertThat(allTVSizeType).contains(screensizetest.getValue()
-                            .getImportantFeature()
-                            .getScreenSize());
-
-                    embedTextInReport("Runtime screensize: " + screensizetest.getValue()
-                            .getImportantFeature()
-                            .getScreenSize() + " vs user expecting size in " + allTVSizeType);
-                });
-
-        //Get enum of input provided by user - screentype
-        String filterStringToMatchForTvType = filterConditions.getFilterScreenType().stream()
-                .map(y -> y.getScreenTypeOption())
-                .collect(Collectors.joining(","));
-
-        //convert enum to screen type e.g. OLED, LCD etc
-        String allTVTypeType = StringUtils.getTVTypeBasedOnInput(filterStringToMatchForTvType);
-
-        getReviewCardMap.entrySet().stream()
-                .filter(y -> y != null && y.getValue() != null && y.getValue().getImportantFeature() != null)
-                .forEach(screentypetest -> {
-                    softly.assertThat(allTVTypeType).contains(screentypetest.getValue()
-                            .getImportantFeature()
-                            .getScreenType());
-
-                    embedTextInReport("Runtime ScreenType: " + screentypetest.getValue()
-                            .getImportantFeature()
-                            .getScreenType() + " vs user expecting type in " + allTVTypeType);
-                });
-
+        softly.assertThat(resultValMap.get("Pokédex_number")).isEqualToIgnoringCase(filterConditions.getPokédexNumber().stream().findFirst().get());
+        softly.assertThat(resultValMap.get("Height")).isEqualToIgnoringCase(filterConditions.getHeight().stream().findFirst().get());
+        softly.assertThat(resultValMap.get("Weight")).isEqualToIgnoringCase(filterConditions.getWeight().stream().findFirst().get());
+        softly.assertThat(resultValMap.get("Type")).isEqualToIgnoringCase(filterConditions.getType().stream().findFirst().get());
+        softly.assertThat(resultValMap.get("Held_Items")).isEqualToIgnoringCase(filterConditions.getHeldItems().stream().findFirst().get());
         softly.assertAll();
-    }
-
-    @When("get all the TV reviews on the page")
-    public void get_all_the_TV_reviews_on_the_page() {
 
     }
 

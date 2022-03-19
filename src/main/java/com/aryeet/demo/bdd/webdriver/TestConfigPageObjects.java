@@ -1,8 +1,7 @@
 package com.aryeet.demo.bdd.webdriver;
 
-import com.aryeet.pages.AppLandingPage;
-import com.aryeet.pages.TvInfoCardPage;
-import com.aryeet.pages.WhichReviewHomePage;
+import com.aryeet.demo.bdd.pages.HomePage;
+
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,20 +45,10 @@ public class TestConfigPageObjects {
 
 
     @Bean
-    public AppLandingPage appLandingPage() {
+    public HomePage appLandingPage() {
         System.out.println("I am into AppLandingPage page" );
-        return new AppLandingPage(environment.getProperty("base.url"), sharedDriver, 30);
+        return new HomePage(environment.getProperty("base.url"), sharedDriver, 30);
     }
 
-    @Bean
-    public WhichReviewHomePage whichReviewHomePage() {
-        System.out.println("I am into AppLandingPage page" );
-        return new WhichReviewHomePage(environment.getProperty("base.url"), sharedDriver, 30);
-    }
-    @Bean
-    public TvInfoCardPage tvInfoCardPage() {
-        System.out.println("I am into TvInfoCardPage page" );
-        return new TvInfoCardPage(environment.getProperty("base.url"), sharedDriver, 30);
-    }
 
 }

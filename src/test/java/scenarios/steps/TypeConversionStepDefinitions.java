@@ -1,6 +1,6 @@
 package scenarios.steps;
 
-import com.aryeet.model.ReviewFilter;
+import com.aryeet.demo.bdd.model.CharacterFilter;
 import io.cucumber.java.DataTableType;
 
 import java.util.Map;
@@ -8,8 +8,8 @@ import java.util.Map;
 public class TypeConversionStepDefinitions {
 
     @DataTableType
-    public ReviewFilter whichFilterCriteria(Map<String, String> entry) {
-        return new ReviewFilter().setReviewFilter(entry);
+    public CharacterFilter whichFilterCriteria(Map<String, String> entry) {
+        return new CharacterFilter().setReviewFilter(entry);
     }
 
 }
